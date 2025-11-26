@@ -1,38 +1,38 @@
 .login_container {
-    -fx-background-color: #F7FAFC; /* Light Gray Background */
+    -fx-background-color: linear-gradient(to bottom, #f4f7fa, #e8ecf3);
 }
 
-/** Logo Container Styles **/
+
 .login_logo_container{
-    -fx-background-color: #2D3748; /* Dark Gray */
+    -fx-background-color: #02326E;
     -fx-alignment: center;
 }
 
 .login_logo_container Text {
     -fx-font-size: 2em;
-    -fx-fill: #FFFFFF; /* White */
+    -fx-fill: #FFFFFF;
 }
 
 .login_logo_container FontAwesomeIconView {
-    -fx-fill: #D69E2E; /* Accent Gold */
+    -fx-fill: white;
 }
 
 .account_selector {
-    -fx-background-color: #FFFFFF; /* White */
+    -fx-background-color: #FFFFFF;
 }
 
 .account_selector .label{
-    -fx-text-fill: #2D3748; /* Dark Gray */
+    -fx-text-fill: #02326E;
     -fx-font-size: 1.1em;
 
 }
 
 .account_selector .arrow {
-    -fx-background-color: #005A9C; /* Primary Blue */
+    -fx-background-color: #02326E;
 }
 
 #choice-box-popup-menu{
-    -fx-background-color: #FFFFFF; /* White */
+    -fx-background-color: #FFFFFF;
 }
 
 /* Login Form styles*/
@@ -58,11 +58,14 @@
 }
 
 .login_form_container Button{
-    -fx-background-color: #005A9C; /* Primary Blue */
-    -fx-text-fill: #FFFFFF; /* White */
+    -fx-background-color: linear-gradient(to right, #02326E, #00264D);
+    -fx-background-radius: 6;
+    -fx-effect: dropshadow(three-pass-box, #AAAAAA, 3, 0, 3, 0);
     -fx-pref-width: 350;
     -fx-pref-height: 30;
     -fx-font-size: 1.2em;
+    -fx-font-family: "Calibri Light";
+    -fx-text-fill: #FFFFFF;
 }
 
 .login_form_container Button:hover {
