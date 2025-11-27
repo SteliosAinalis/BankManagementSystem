@@ -41,7 +41,7 @@
 }
 .account Text{
     -fx-fill: #FFFFFF;
-    -fx-font-family: "Calibri Light";
+    -fx-font-family: "Calibrii Light";
     -fx-font-size: 1.5em;
 }
 
@@ -104,7 +104,7 @@
 /*transanctions tab*/
 .transaction_listview{
     -fx-background-color: white;
-   -fx-background-radius: 13;
+    -fx-background-radius: 13;
 }
 
 
@@ -161,4 +161,64 @@
 
 .new_trans_container Button:hover{
     -fx-cursor: hand;
+}
+
+/* ===================================================
+   NET WORTH CHART STYLING (Newly Added)
+======================================================*/
+.chart-container {
+    -fx-background-color: white;
+    -fx-background-radius: 13;
+    -fx-padding: 10;
+    -fx-border-width: 1;
+    -fx-border-color: #DDDDDD;
+    -fx-pref-width: 260;
+
+
+}
+
+/* Remove background color from the chart plot area for a clean look */
+.chart-plot-background {
+    -fx-background-color: transparent;
+}
+
+/* Style the line itself */
+.chart-series-line {
+    -fx-stroke-width: 3px;
+    -fx-stroke: #02326E; /* Using the dark blue from your gradient */
+}
+
+/* Hide the symbols on the line for a modern, clean look */
+.default-color0.chart-line-symbol {
+    -fx-background-color: transparent, transparent;
+}
+
+/* Style the chart axes */
+.axis {
+    -fx-font-size: 0.8em;
+    -fx-tick-label-fill: #555555;
+    -fx-tick-length: 8;
+    -fx-border-color: transparent;
+}
+
+/* Style the time range toggle buttons */
+.toggle-button {
+    -fx-background-color: #F0F0F0;
+    -fx-border-color: #CCCCCC;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+    -fx-font-family: "Calibri Light"; /* Match your font */
+}
+
+.toggle-button:hover {
+    -fx-background-color: #E0E0E0;
+    -fx-cursor: hand;
+}
+
+.toggle-button:selected {
+    -fx-background-color: linear-gradient(to right, #02326E, #00264D); /* Match your gradient */
+    -fx-text-fill: white;
+    -fx-border-color: #00264D;
 }
