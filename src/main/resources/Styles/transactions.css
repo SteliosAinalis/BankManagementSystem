@@ -1,0 +1,19 @@
+.transactions_container {
+    -fx-background-color: linear-gradient(to bottom, #f4f7fa, #e8ecf3);
+}
+
+.transactions_container Text {
+    -fx-text-fill: #000000;
+    -fx-font-size: 2.5em;
+    -fx-font-family: "Calibri Light";
+}
+
+.transactions_container listview{
+    -fx-background-color: white;
+    -fx-padding: 10;
+}
+
+.transactions_container .list-cell{
+    -fx-background-color: linear-gradient(to bottom, #f4f7fa, #e8ecf3);
+    -fx-pref-width: 800;
+}

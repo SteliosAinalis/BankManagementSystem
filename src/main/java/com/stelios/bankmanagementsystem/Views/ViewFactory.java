@@ -1,15 +1,37 @@
 package com.stelios.bankmanagementsystem.Views;
 
 import com.stelios.bankmanagementsystem.Controllers.Client.ClientController;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class ViewFactory {
+    //Client
+    private final StringProperty clientMenuItem;
     private AnchorPane dashboardView;
+    private AnchorPane transactionsView;
+    private AnchorPane accountsView;
 
-    public ViewFactory(){}
+
+    public ViewFactory(){
+        this.clientMenuItem = new SimpleStringProperty("");
+    }
+
+
+
+
+    public StringProperty getClientMenuItem() {
+        return clientMenuItem;
+    }
+
+    public StringProperty clientMenuItemProperty() {
+        return clientMenuItem;
+    }
+
+//    Client Views section
 
     public AnchorPane getDashboardView() {
         if(dashboardView == null){
@@ -20,6 +42,28 @@ public class ViewFactory {
             }
         }
         return dashboardView;
+    }
+
+    public AnchorPane getTransactionsView() {
+        if(transactionsView == null){
+            try {
+                transactionsView = new FXMLLoader(getClass().getResource("/FXML/Client/Transactions.fxml")).load();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return transactionsView;
+    }
+
+    public AnchorPane getAccountsView() {
+        if(accountsView == null){
+            try {
+                accountsView = new FXMLLoader(getClass().getResource("/FXML/Client/Accounts.fxml")).load();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+        return accountsView;
     }
 
     public void showLoginWindow(){
