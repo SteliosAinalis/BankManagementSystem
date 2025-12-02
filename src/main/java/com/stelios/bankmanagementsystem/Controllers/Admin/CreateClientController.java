@@ -34,7 +34,23 @@ public class CreateClientController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        create_client_btn.setOnAction(event -> createClient());
+        pAddress_box.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                payeeAddress = createPayeeAddress();
+                onCreatePayeeAddress();
+            }
+        });
+        ch_acc_box.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                createCheckingsAccountFlag= true;
+            }
+        });
+        sv_acc_box.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                createSavingsAccountFlag = true;
+            }
+        });
 
     }
 
@@ -69,6 +85,21 @@ public class CreateClientController implements Initializable {
         error_lbl.setText("Client Account created successfully!");
         resetFields();
     }
+
+
+    private void onCreatePayeeAddress() {
+        if(fName_fld.getText() != null & lName_fld.getText() != null) {
+            pAddress_lbl.setText(payeeAddress);
+        }
+    }
+
+    private String createPayeeAddress() {
+        int id = Model.getInstance().getDatabaseDriver().getLastClientsId()+1;
+        char fChar = Character.toLowerCase(fName_fld.getText().charAt(0));
+        return "@"+fChar+lName_fld.getText()+id;
+    }
+
+
 
 
     private void resetFields() {
