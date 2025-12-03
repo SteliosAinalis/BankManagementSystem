@@ -101,9 +101,8 @@
     -fx-font-size: 1.5em;
 }
 
-/*transanctions tab*/
 .transaction_listview{
-    -fx-background-color: white;
+    -fx-background-color: transparent;
     -fx-background-radius: 13;
 }
 
@@ -113,7 +112,7 @@
 }
 
 .list-cell{
-    -fx-background-color: #EEEEEE;
+    -fx-background-color: transparent;
     -fx-padding: 15 0 15 0;
 }
 
