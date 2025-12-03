@@ -138,4 +138,27 @@ public class DatabaseDriver {
 
     }
 
+    public ResultSet searchClient(String pAddress){
+        Statement statement;
+        ResultSet resultSet = null;
+
+        try{
+            statement = this.connection.createStatement();
+            resultSet = statement.executeQuery("SELECT * FROM Clients WHERE PayeeAddress='"+pAddress+"';");
+        }catch(SQLException e){
+            System.err.println("DATABASE ERROR executing searchClient query.");
+        }
+        return resultSet;
+    }
+
+    public void depositSavings(String pAddress, double amount){
+        Statement statement;
+        try{
+            statement = this.connection.createStatement();
+            statement.executeUpdate("UPDATE SavingsAccounts SET Balance="+amount+" WHERE Owner='"+pAddress+"';");
+        } catch (SQLException e) {
+            System.err.println("DATABASE ERROR executing depositSavings query.");
+        }
+    }
+
 }
