@@ -32,7 +32,7 @@ public class Model {
         this.databaseDriver = new DatabaseDriver();
         this.adminLoginSuccess = false;
         this.clientLoginSuccess = false;
-        this.client = new Client("","","",null,null,null);
+        this.client = new Client("","","",null,null,null,"");
         this.latestTransactions = FXCollections.observableArrayList();
         this.allTransactions = FXCollections.observableArrayList();
         this.clients = FXCollections.observableArrayList();
@@ -76,6 +76,8 @@ public class Model {
                 this.client.dateCreatedProperty().set(date);
                 checkingAccount = getCheckingAccount(pAddress);
                 savingsAccount = getSavingsAccount(pAddress);
+                String imagePath = resultSet.getString("ProfileImagePath");
+                this.client.profileImagePathProperty().set(imagePath);
                 this.client.checkingAccountProperty().set(checkingAccount);
                 this.client.savingsAccountProperty().set(savingsAccount);
                 this.clientLoginSuccess = true;
@@ -155,7 +157,8 @@ public class Model {
                 LocalDate date = LocalDate.of(Integer.parseInt(dateParts[0]),Integer.parseInt(dateParts[1]),Integer.parseInt(dateParts[2]));
                 checkingAccount = getCheckingAccount(pAddress);
                 savingsAccount = getSavingsAccount(pAddress);
-                clients.add(new Client(fName, lName, pAddress, checkingAccount, savingsAccount, date));
+                String imagePath = resultSet.getString("ProfileImagePath");
+                clients.add(new Client(fName, lName, pAddress, checkingAccount, savingsAccount, date,  imagePath));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -172,7 +175,8 @@ public class Model {
             String lName = resultSet.getString("LastName");
             String[] dateParts = resultSet.getString("Date").split("-");
             LocalDate date = LocalDate.of(Integer.parseInt(dateParts[0]),Integer.parseInt(dateParts[1]),Integer.parseInt(dateParts[2]));
-            searchResults.add(new Client(fName, lName, pAddress, checkingAccount, savingsAccount, date));
+            String imagePath = resultSet.getString("ProfileImagePath");
+            searchResults.add(new Client(fName, lName, pAddress, checkingAccount, savingsAccount, date,  imagePath));
         } catch (Exception e) {
             e.printStackTrace();
         }

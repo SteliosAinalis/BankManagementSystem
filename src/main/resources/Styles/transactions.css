@@ -3,17 +3,49 @@
 }
 
 .transactions_container Text {
-    -fx-text-fill: #000000;
     -fx-font-size: 2.5em;
     -fx-font-family: "Calibri Light";
+    -fx-fill: #000000;
+    -fx-alignment: center;
 }
 
-.transactions_container listview{
+
+.transactions_container .list-view,
+.transactions_container .list-view .viewport {
+    -fx-background-color: transparent;
+}
+
+
+.transactions_container .list-cell {
+    -fx-background-color: transparent;
+    -fx-padding: 5px 10px 5px 10px;
+}
+
+.transactions_container .list-cell:filled > * {
     -fx-background-color: white;
-    -fx-padding: 10;
+    -fx-background-radius: 8;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.06), 10, 0, 0, 4);
 }
 
-.transactions_container .list-cell{
-    -fx-background-color: linear-gradient(to bottom, #f4f7fa, #e8ecf3);
-    -fx-pref-width: 800;
+
+.transactions_container .list-cell:empty {
+    -fx-background-color: transparent;
+}
+
+
+
+.transactions_container .list-cell LABEL {
+    -fx-background-color: #00264D;
+    -fx-text-fill: #FFFFFF;
+    -fx-background-radius: 2;
+    -fx-font-weight: 700;
+    -fx-font-size: 1.7em;
+    -fx-padding: 5;
+}
+
+
+.transactions_container .scroll-bar:horizontal {
+    -fx-max-height: 0;
+    -fx-opacity: 0;
+    -fx-padding: 0;
 }

@@ -55,35 +55,30 @@ public class ClientMenuController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-
         addListeners();
+        bindProfileImage();
+
+    }
+
+    private void bindProfileImage() {
+
+        String imagePath = Model.getInstance().getClient().profileImagePathProperty().get();
 
 
+        if (imagePath != null && !imagePath.isEmpty()) {
 
+            profile_image.setImage(new Image(getClass().getResourceAsStream(imagePath)));
+        } else {
 
-
-
-
-
-
-        //       profile image in menu
-        String imagePath = "/images/stelios.JPG";
-        InputStream inputStream = getClass().getResourceAsStream(imagePath);
-
-        if (inputStream == null) {
-            System.err.println("Error: Image not found at path: " + imagePath);
-            return;
+            profile_image.setImage(new Image(getClass().getResourceAsStream("/images/icon.png")));
         }
-        Image image = new Image(inputStream);
-        profile_image.setImage(image);
-        profile_image.setFitWidth(70);
-        profile_image.setFitHeight(70);
+
+
         double radius = profile_image.getFitWidth() / 2;
         Circle clip = new Circle(radius);
         clip.centerXProperty().bind(profile_image.fitWidthProperty().divide(2));
         clip.centerYProperty().bind(profile_image.fitHeightProperty().divide(2));
-
         profile_image.setClip(clip);
     }
+
 }
