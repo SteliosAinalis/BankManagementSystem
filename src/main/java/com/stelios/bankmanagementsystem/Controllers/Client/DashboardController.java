@@ -1,6 +1,7 @@
 package com.stelios.bankmanagementsystem.Controllers.Client;
 
 import com.stelios.bankmanagementsystem.Models.Model;
+import com.stelios.bankmanagementsystem.Models.Transaction;
 import com.stelios.bankmanagementsystem.Views.TransactionCellFactory;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.Initializable;
@@ -8,6 +9,8 @@ import javafx.scene.control.*;
 import javafx.scene.text.Text;
 
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
@@ -33,6 +36,8 @@ public class DashboardController implements Initializable {
         initiallizeLatestTransactions();
         transaction_listview.setItems(Model.getInstance().getLatestTransactions());
         transaction_listview.setCellFactory(e-> new TransactionCellFactory());
+        send_money_btn.setOnAction(e -> onSendMoney());
+        accountSummary();
     }
 
 
@@ -51,6 +56,54 @@ public class DashboardController implements Initializable {
         if (Model.getInstance().getLatestTransactions().isEmpty()) {
             Model.getInstance().setLatestTransactions();
         }
+    }
+
+    private void onSendMoney(){
+        String receiver = payee_fld.getText();
+        double amount = Double.parseDouble(amount_fld.getText());
+        String message = message_fld.getText();
+        String sender = Model.getInstance().getClient().payeeAddressProperty().get();
+        ResultSet resultSet = Model.getInstance().getDatabaseDriver().searchClient(receiver);
+        try{
+            if(resultSet.isBeforeFirst()){
+                Model.getInstance().getDatabaseDriver().updateBalance(receiver, amount, "ADD");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            System.out.println("Error sending Money in Dashboard");
+        }
+
+        Model.getInstance().getDatabaseDriver().updateBalance(sender, amount, "SUBFROMSENDER");
+        try{
+            Model.getInstance().getClient().savingsAccountProperty().get().setBalance(Model.getInstance().getDatabaseDriver().getSavingsAccountBalance(sender));
+        } catch (Exception e) {
+            System.out.println("Error updating savings account");
+        }
+        Model.getInstance().getDatabaseDriver().newTransaction(sender, receiver, amount, message);
+
+        payee_fld.clear();
+        amount_fld.clear();
+        message_fld.clear();
+
+    }
+
+
+    private void accountSummary(){
+        double income =0;
+        double expenses =0;
+        if (Model.getInstance().getAllTransactions().isEmpty()) {
+            Model.getInstance().setAllTransactions();
+        }
+        for (Transaction transaction : Model.getInstance().getAllTransactions()) {
+            if (transaction.senderProperty().get().equals(Model.getInstance().getClient().payeeAddressProperty().get())) {
+                expenses = expenses +  transaction.amountProperty().get();
+            }else{
+                income = income + transaction.amountProperty().get();
+            }
+        }
+        income_lbl.setText("+$" + income);
+        expense_lbl.setText("-$" + expenses);
+
     }
 
 }

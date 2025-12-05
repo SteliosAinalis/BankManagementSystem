@@ -105,7 +105,7 @@ public class Model {
     }
 
     public void setLatestTransactions(){
-        prepareTransactions(this.latestTransactions, 5);
+        prepareTransactions(this.latestTransactions, 4);
     }
 
     public ObservableList<Transaction> getLatestTransactions() {

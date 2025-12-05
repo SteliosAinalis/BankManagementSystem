@@ -107,8 +107,29 @@
 }
 
 
-.transaction_listview .scroll_bar:vertical{
-    -fx-scale-x: 0;
+.transaction_listview .scroll-bar:vertical {
+
+    -fx-pref-width: 0;
+    -fx-max-width: 0;
+    -fx-opacity: 0;
+    -fx-padding: 0;
+
+
+    -fx-background-color: transparent;
+}
+
+
+.transaction_listview .scroll-bar:vertical .increment-button,
+.transaction_listview .scroll-bar:vertical .decrement-button {
+    -fx-pref-height: 0;
+    -fx-max-height: 0;
+    -fx-opacity: 0;
+    -fx-padding: 0;
+}
+
+
+.transaction_listview .scroll-bar:vertical .thumb {
+    -fx-background-color: transparent;
 }
 
 .transaction_listview .scroll-bar:horizontal {
@@ -168,16 +189,13 @@
     -fx-cursor: hand;
 }
 
-/* ===================================================
-   NET WORTH CHART STYLING (Newly Added)
-======================================================*/
+
 .chart-container {
     -fx-background-color: white;
-    -fx-background-radius: 13;
+    -fx-background-radius: 6;
     -fx-padding: 10;
     -fx-border-width: 1;
-    -fx-border-color: #DDDDDD;
-    -fx-pref-width: 260;
+    -fx-pref-width: 240;
 
 
 }
