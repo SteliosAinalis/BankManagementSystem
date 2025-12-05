@@ -282,7 +282,6 @@ public class DatabaseDriver {
         Statement statement;
         try {
             statement = this.connection.createStatement();
-            // You must delete the relationship in both directions
             statement.executeUpdate("DELETE FROM Friends WHERE ClientAddress='"+clientAddress+"' AND FriendAddress='"+friendAddress+"';");
             statement.executeUpdate("DELETE FROM Friends WHERE ClientAddress='"+friendAddress+"' AND FriendAddress='"+clientAddress+"';");
         } catch (SQLException e) {
@@ -305,6 +304,22 @@ public class DatabaseDriver {
         }
         return resultSet;
     }
+
+    public void deleteClient(String pAddress) {
+        Statement statement;
+        try {
+            statement = this.connection.createStatement();
+            statement.executeUpdate("DELETE FROM CheckingAccounts WHERE Owner='"+pAddress+"';");
+            statement.executeUpdate("DELETE FROM SavingsAccounts WHERE Owner='"+pAddress+"';");
+            statement.executeUpdate("DELETE FROM Transactions WHERE Sender='"+pAddress+"' OR Receiver='"+pAddress+"';");
+            statement.executeUpdate("DELETE FROM Friends WHERE ClientAddress='"+pAddress+"' OR FriendAddress='"+pAddress+"';");
+            statement.executeUpdate("DELETE FROM Clients WHERE PayeeAddress='"+pAddress+"';");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
 
     //Methods

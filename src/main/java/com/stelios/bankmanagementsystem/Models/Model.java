@@ -120,6 +120,20 @@ public class Model {
         return allTransactions;
     }
 
+    public void logout() {
+        this.client.firstNameProperty().set("");
+        this.client.lastNameProperty().set("");
+        this.client.payeeAddressProperty().set("");
+        this.client.dateCreatedProperty().set(null);
+        this.client.checkingAccountProperty().set(new CheckingAccount("", "", 0, 0));
+        this.client.savingsAccountProperty().set(new SavingsAccount("", "", 0, 0));
+        this.client.profileImagePathProperty().set("");
+        this.clientLoginSuccess = false;
+        if (latestTransactions != null) {
+            latestTransactions.clear();
+        }
+    }
+
 
 
 
@@ -182,6 +196,9 @@ public class Model {
         }
         return searchResults;
     }
+    public void addClientToAllClientsList(Client client) {
+        this.clients.add(client);
+    }
 
 
 
@@ -221,13 +238,6 @@ public class Model {
         }
         return account;
     }
-
-
-
-
-
-
-
 
 
 }

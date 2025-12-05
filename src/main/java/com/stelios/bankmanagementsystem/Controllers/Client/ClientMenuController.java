@@ -53,6 +53,7 @@ public class ClientMenuController implements Initializable {
 
     private void onLogout() {
         Stage stage = (Stage) dashboard_btn.getScene().getWindow();
+        Model.getInstance().logout();
         Model.getInstance().getViewFactory().closeStage(stage);
         Model.getInstance().getViewFactory().showLoginWindow();
     }

@@ -16,9 +16,5 @@
         <Label fx:id="sv_acc_lbl" styleClass="acc_display_lbl" text="1236412242" />
         <Label fx:id="date_lbl" text="2025-11-30" />
     </HBox>
-    <Button fx:id="delete_btn" layoutX="658.0" layoutY="13.0" mnemonicParsing="false" styleClass="delete_btn" text="Delete" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="12.0">
-        <graphic>
-          <FontAwesomeIconView glyphName="WINDOW_CLOSE_ALT" size="15" />
-        </graphic>
-    </Button>
+
 </AnchorPane>
