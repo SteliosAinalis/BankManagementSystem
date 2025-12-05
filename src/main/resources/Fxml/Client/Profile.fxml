@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Text?>
+
+<!-- Corrected xmlns version -->
+
+<AnchorPane prefHeight="750.0" prefWidth="850.0" styleClass="profile_view" stylesheets="@../../Styles/Profile.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.stelios.bankmanagementsystem.Controllers.Client.ProfileController">
+    <VBox spacing="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+        <HBox alignment="CENTER">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="page-title" text="Profile" />
+        </HBox>
+
+        <HBox alignment="CENTER" spacing="20.0" styleClass="profile-header">
+            <ImageView fx:id="profile_image" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                <clip>
+                    <Circle radius="50.0" />
+                </clip>
+            </ImageView>
+            <Button fx:id="change_picture_btn" mnemonicParsing="false" styleClass="profile-button" text="Change Picture" />
+        </HBox>
+
+        <VBox styleClass="profile-section">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Change Password" />
+            <HBox alignment="CENTER_LEFT" spacing="10.0">
+                <Label text="New Password:" />
+                <PasswordField fx:id="new_password_fld" />
+                <Label text="Confirm:" />
+                <PasswordField fx:id="confirm_password_fld" />
+                <Button fx:id="save_password_btn" mnemonicParsing="false" styleClass="profile-button" text="Save" />
+            </HBox>
+        </VBox>
+
+        <!-- Message Label for Feedback -->
+        <Label fx:id="message_lbl" styleClass="message-label" />
+
+
+        <Line endX="700.0" stroke="#DDDDDD" />
+
+        <HBox spacing="20.0">
+            <!-- Friends List -->
+            <VBox spacing="10.0" HBox.hgrow="ALWAYS">
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="section-title" text="Friends List" />
+                <!-- The crucial fx:id is here -->
+                <ListView fx:id="friends_listview" prefHeight="250.0" />
+            </VBox>
+            <!-- Add Friend -->
+            <VBox spacing="10.0">
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="section-title" text="Add a Friend" />
+                <HBox spacing="10.0">
+                    <TextField fx:id="search_fld" promptText="Search by First Name..." />
+                    <Button fx:id="search_btn" mnemonicParsing="false" styleClass="profile-button" text="Search" />
+                </HBox>
+                <!-- The crucial fx:id is here -->
+                <ListView fx:id="search_results_listview" prefHeight="200.0" />
+            </VBox>
+        </HBox>
+    </VBox>
+</AnchorPane>

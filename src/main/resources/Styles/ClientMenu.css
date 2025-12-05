@@ -45,12 +45,11 @@
 .menu_container Button{
     -fx-pref-width: 120;
     -fx-pref-height: 40;
-
     -fx-background-color: #f4f7fa;
     -fx-background-radius: 10;
     -fx-text-fill: #02326E ;
     -fx-alignment: center_left;
-    -fx-font-size: 1.1em;
+    -fx-font-size: 1em;
     -fx-effect: dropshadow(three-pass-box, #DDDDDD ,5, 0, 0, 6 );
 }
 

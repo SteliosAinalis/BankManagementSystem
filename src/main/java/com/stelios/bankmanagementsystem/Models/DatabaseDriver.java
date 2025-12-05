@@ -136,6 +136,85 @@ public class DatabaseDriver {
 
 
 
+    public void updateClientPassword(String pAddress, String newPassword) {
+        Statement statement;
+        try {
+            statement = this.connection.createStatement();
+            statement.executeUpdate("UPDATE Clients SET Password='"+newPassword+"' WHERE PayeeAddress='"+pAddress+"';");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateClientProfileImagePath(String pAddress, String path) {
+        Statement statement;
+        try {
+            statement = this.connection.createStatement();
+            statement.executeUpdate("UPDATE Clients SET ProfileImagePath='"+path+"' WHERE PayeeAddress='"+pAddress+"';");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+    public ResultSet searchClientsByFirstName(String firstName) {
+        Statement statement;
+        ResultSet resultSet = null;
+        try {
+            statement = this.connection.createStatement();
+            // Using LIKE allows for partial matches (e.g., "Stel" will find "Stelios")
+            resultSet = statement.executeQuery("SELECT * FROM Clients WHERE FirstName LIKE '%"+firstName+"%';");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return resultSet;
+    }
+
+    public void addFriend(String clientAddress, String friendAddress) {
+        Statement statement;
+        try {
+            statement = this.connection.createStatement();
+            // Add the friendship in both directions to make it mutual
+            statement.executeUpdate("INSERT INTO Friends(ClientAddress, FriendAddress) VALUES ('"+clientAddress+"', '"+friendAddress+"');");
+            statement.executeUpdate("INSERT INTO Friends(ClientAddress, FriendAddress) VALUES ('"+friendAddress+"', '"+clientAddress+"');");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public ResultSet getFriends(String clientAddress) {
+        Statement statement;
+        ResultSet resultSet = null;
+        try {
+            statement = this.connection.createStatement();
+            // This query joins the Friends and Clients tables to get the full details of each friend
+            resultSet = statement.executeQuery("SELECT c.* FROM Friends f JOIN Clients c ON f.FriendAddress = c.PayeeAddress WHERE f.ClientAddress = '"+clientAddress+"';");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return resultSet;
+    }
+
+    public ResultSet getIncomeByPayee(String receiverAddress) {
+        Statement statement;
+        ResultSet resultSet = null;
+        try {
+            statement = this.connection.createStatement();
+            // This query groups all transactions by the SENDER and sums the amounts
+            resultSet = statement.executeQuery("SELECT Sender, SUM(Amount) as TotalReceived " +
+                    "FROM Transactions " +
+                    "WHERE Receiver = '"+receiverAddress+"' " +
+                    "GROUP BY Sender;");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return resultSet;
+    }
+
+
+
+
 
     //Admin
     public ResultSet getAdminData(String username, String password){
@@ -194,6 +273,35 @@ public class DatabaseDriver {
             resultSet = statement.executeQuery("SELECT * FROM Clients;");
         } catch (SQLException e) {
             System.err.println("DATABASE ERROR executing get all clients data query.");
+        }
+        return resultSet;
+    }
+
+
+    public void removeFriend(String clientAddress, String friendAddress) {
+        Statement statement;
+        try {
+            statement = this.connection.createStatement();
+            // You must delete the relationship in both directions
+            statement.executeUpdate("DELETE FROM Friends WHERE ClientAddress='"+clientAddress+"' AND FriendAddress='"+friendAddress+"';");
+            statement.executeUpdate("DELETE FROM Friends WHERE ClientAddress='"+friendAddress+"' AND FriendAddress='"+clientAddress+"';");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public ResultSet getSpendingByPayee(String senderAddress) {
+        Statement statement;
+        ResultSet resultSet = null;
+        try {
+            statement = this.connection.createStatement();
+            // This query groups all transactions by the receiver and sums the amounts
+            resultSet = statement.executeQuery("SELECT Receiver, SUM(Amount) as TotalSent " +
+                    "FROM Transactions " +
+                    "WHERE Sender = '"+senderAddress+"' " +
+                    "GROUP BY Receiver;");
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return resultSet;
     }

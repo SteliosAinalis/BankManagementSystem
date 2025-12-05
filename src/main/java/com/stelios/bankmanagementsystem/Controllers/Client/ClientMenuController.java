@@ -31,6 +31,7 @@ public class ClientMenuController implements Initializable {
         transaction_btn.setOnAction(event -> onTransactions());
         accounts_btn.setOnAction(event -> onAccounts());
         logout_btn.setOnAction(event -> onLogout());
+        profile_btn.setOnAction(event -> onProfile());
     }
 
     private void onDashboard() {
@@ -44,6 +45,11 @@ public class ClientMenuController implements Initializable {
     private void onAccounts() {
         Model.getInstance().getViewFactory().getClientMenuItem().set(ClientMenuOptions.ACCOUNTS);
     }
+
+    private void onProfile() {
+        Model.getInstance().getViewFactory().getClientMenuItem().set(ClientMenuOptions.PROFILE);
+    }
+
 
     private void onLogout() {
         Stage stage = (Stage) dashboard_btn.getScene().getWindow();
@@ -70,7 +76,7 @@ public class ClientMenuController implements Initializable {
             profile_image.setImage(new Image(getClass().getResourceAsStream(imagePath)));
         } else {
 
-            profile_image.setImage(new Image(getClass().getResourceAsStream("/images/icon.png")));
+            profile_image.setImage(new Image(getClass().getResourceAsStream("/images/default.jpg")));
         }
 
 

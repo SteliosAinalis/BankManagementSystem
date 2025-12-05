@@ -194,7 +194,6 @@
     -fx-background-color: white;
     -fx-background-radius: 6;
     -fx-padding: 10;
-    -fx-border-width: 1;
     -fx-pref-width: 240;
 
 
@@ -204,10 +203,9 @@
     -fx-background-color: transparent;
 }
 
-/* Style the line itself */
 .chart-series-line {
     -fx-stroke-width: 3px;
-    -fx-stroke: #02326E; /* Using the dark blue from your gradient */
+    -fx-stroke: #02326E;
 }
 
 /* Hide the symbols on the line for a modern, clean look */
@@ -215,7 +213,6 @@
     -fx-background-color: transparent, transparent;
 }
 
-/* Style the chart axes */
 .axis {
     -fx-font-size: 0.8em;
     -fx-tick-label-fill: #555555;
@@ -223,7 +220,6 @@
     -fx-border-color: transparent;
 }
 
-/* Style the time range toggle buttons */
 .toggle-button {
     -fx-background-color: #F0F0F0;
     -fx-border-color: #CCCCCC;
@@ -231,7 +227,7 @@
     -fx-border-radius: 5;
     -fx-font-weight: bold;
     -fx-text-fill: #333333;
-    -fx-font-family: "Calibri Light"; /* Match your font */
+    -fx-font-family: "Calibri Light";
 }
 
 .toggle-button:hover {
@@ -243,4 +239,70 @@
     -fx-background-color: linear-gradient(to right, #02326E, #00264D); /* Match your gradient */
     -fx-text-fill: white;
     -fx-border-color: #00264D;
+}
+
+
+.snapshot-container {
+    -fx-background-color: white;
+    -fx-background-radius: 13;
+    -fx-padding: 10;
+}
+
+.snapshot-container .toggle-button {
+    -fx-background-color: #f4f7fa;
+    -fx-background-radius: 10;
+    -fx-text-fill: #02326E ;
+    -fx-alignment: center_left;
+    -fx-font-size: 1em;
+    -fx-effect: dropshadow(three-pass-box, #DDDDDD ,5, 0, 0, 6 );
+    -fx-font-weight: bold;
+    -fx-font-family: "Calibri Light";
+}
+
+.snapshot-container .toggle-button:hover {
+    -fx-background-color: #E0E0E0;
+    -fx-cursor: hand;
+}
+
+.snapshot-container .toggle-button:selected {
+    -fx-background-color: linear-gradient(to right, #02326E, #00264D);
+    -fx-background-radius: 6;
+    -fx-text-fill: white;
+    /*-fx-border-color: #00264D;*/
+}
+
+.line-chart {
+    -fx-horizontal-grid-lines-visible: false;
+    -fx-vertical-grid-lines-visible: false;
+}
+
+.line-chart .chart-plot-background {
+    -fx-background-color: transparent;
+}
+
+.line-chart .chart-series-line {
+    -fx-stroke: #02326E;
+    -fx-stroke-width: 3px;
+}
+
+
+.line-chart .chart-series-area-fill {
+    -fx-fill: linear-gradient(to top, rgba(2, 50, 110, 0.3) 0%, rgba(2, 50, 110, 0.05) 100%);
+}
+
+
+.line-chart .axis {
+    -fx-border-color: transparent;
+}
+
+
+.pie-chart {
+    -fx-label-line-length: 10;
+    -fx-legend-side: bottom;
+    -fx-legend-visible: true;
+}
+
+
+.pie-chart .chart-pie-label {
+    -fx-fill: transparent;
 }

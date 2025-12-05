@@ -24,7 +24,7 @@ public class Client {
         this.checkingAccount = new SimpleObjectProperty<>(this, "CheckingAccount", cAccount);
         this.savingsAccount = new SimpleObjectProperty<>(this, "SavingsAccount", sAccount);
         this.dateCreated = new SimpleObjectProperty<>(this, "DateCreated", date);
-        this.profileImagePath = new SimpleStringProperty(this, "ProfileImagePath", imagePath); // Add this line
+        this.profileImagePath = new SimpleStringProperty(this, "ProfileImagePath", imagePath);
 
     }
 

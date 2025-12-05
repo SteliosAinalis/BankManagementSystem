@@ -17,6 +17,7 @@ public class ViewFactory {
     private AnchorPane dashboardView;
     private AnchorPane transactionsView;
     private AnchorPane accountsView;
+    private AnchorPane profileView;
 
 
     //Admin
@@ -80,6 +81,17 @@ public class ViewFactory {
             }
         }
         return accountsView;
+    }
+
+    public AnchorPane getProfileView() {
+        if (profileView == null) {
+            try {
+                profileView = new FXMLLoader(getClass().getResource("/Fxml/Client/Profile.fxml")).load();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return profileView;
     }
 
 
@@ -159,6 +171,10 @@ public class ViewFactory {
         stage.setTitle("Bank");
         stage.show();
     }
+
+
+
+
 
 
     public void closeStage(Stage stage){

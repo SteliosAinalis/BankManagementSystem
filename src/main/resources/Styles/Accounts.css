@@ -4,7 +4,7 @@
 
 .accounts_view_container Text{
     -fx-fill: #888888;
-    -fx-font: 1.4em;
+    -fx-font-size: 1.4em;
     -fx-font-family: "Calibri Light";
 }
 

@@ -1,0 +1,122 @@
+/* ===================================================
+   MAIN PROFILE VIEW & TITLE
+======================================================*/
+.profile_view {
+    -fx-background-color: linear-gradient(to bottom, #f4f7fa, #e8ecf3);
+}
+
+.page-title {
+    -fx-font-family: "Calibri Light";
+    -fx-font-size: 2.5em;
+    -fx-fill: #333333;
+}
+
+/* ===================================================
+   CONTAINER STYLES
+======================================================*/
+.profile-header, .profile-section {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-padding: 20px;
+    -fx-spacing: 15px; /* Added for consistency */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.08), 10, 0, 0, 5);
+}
+
+.profile-section Text {
+    -fx-font-family: "Calibri Light";
+    -fx-font-size: 1.6em;
+    -fx-fill: #333333;
+}
+
+/* ===================================================
+   FORM ELEMENT STYLES
+======================================================*/
+.profile_view Label {
+    -fx-font-family: "Calibri";
+    -fx-font-size: 1.2em;
+    -fx-font-weight: bold;
+}
+
+.profile_view TextField, .profile_view PasswordField {
+    -fx-pref-height: 35; /* Increased height */
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #AAAAAA;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6; /* Added for consistency */
+}
+
+.profile-button {
+    -fx-background-color: linear-gradient(to right, #02326E, #00264D);
+    -fx-background-radius: 6;
+    -fx-effect: dropshadow(three-pass-box, #AAAAAA, 3, 0, 3, 0);
+    -fx-font-size: 1.1em;
+    -fx-font-family: "Calibri Light";
+    -fx-text-fill: #FFFFFF;
+    -fx-cursor: hand;
+}
+
+.profile-button:hover {
+    -fx-background-color: linear-gradient(to right, #03438d, #003261); /* Lighter on hover */
+}
+
+
+.section-title {
+    -fx-font-family: "Calibri Light";
+    -fx-font-size: 1.6em;
+    -fx-fill: #333333;
+}
+
+.profile_view .list-view {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-border-color: #DDDDDD;
+    -fx-border-radius: 10;
+}
+
+.profile_view .list-cell {
+    -fx-background-color: transparent;
+    -fx-padding: 5px;
+}
+
+.friend-cell-container {
+    -fx-padding: 5px;
+}
+
+.friend-cell-container .payee-address {
+    -fx-font-family: "Calibri";
+    -fx-font-size: 1.2em;
+    -fx-text-fill: #333333;
+}
+
+.search-result-cell-container {
+    -fx-padding: 5px;
+}
+
+.search-result-cell-container Text {
+    -fx-font-family: "Calibri";
+    -fx-font-size: 1.2em;
+}
+
+.search-result-cell-container .add-friend-button {
+    -fx-background-radius: 20em;
+    -fx-background-color: #EAEAEA;
+    -fx-cursor: hand;
+}
+
+.search-result-cell-container .add-friend-button:hover {
+    -fx-background-color: #D0D0D0;
+}
+
+
+.message-label {
+    -fx-font-size: 1.2em;
+    -fx-font-weight: bold;
+}
+
+.message-label.success {
+    -fx-text-fill: #28A745;
+}
+
+.message-label.error {
+    -fx-text-fill: #DC3545;
+}
