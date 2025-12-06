@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="750.0" prefWidth="850.0" styleClass="transactions_container" stylesheets="@../../Styles/transactions.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.stelios.bankmanagementsystem.Controllers.Client.TransactionsController">
+<AnchorPane prefHeight="750.0" prefWidth="850.0" styleClass="all_transactions_listview" stylesheets="@../../Styles/transactions.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.stelios.bankmanagementsystem.Controllers.Client.TransactionsController">
      <Text styleClass="title-text" text="Transactions" AnchorPane.leftAnchor="330.0" AnchorPane.topAnchor="0.0" />
     <ListView fx:id="transactions_listview" layoutX="14.0" layoutY="49.0" prefHeight="640.0" prefWidth="830.0" styleClass="list-cell" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="100.0" />
 </AnchorPane>

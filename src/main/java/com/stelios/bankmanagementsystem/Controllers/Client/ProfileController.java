@@ -144,32 +144,35 @@ public class ProfileController implements Initializable {
 
 
     private void updateProfilePictureUI(String imagePath) {
-        Image image;
+        Image image = null;
+
         if (imagePath != null && !imagePath.isEmpty()) {
             try {
-                image = new Image(new File(imagePath).toURI().toString());
-                change_picture_btn.setText("Change Picture");
-            } catch (Exception e) {
-                try {
+                if (imagePath.startsWith("/") && !imagePath.startsWith("/Users/") && !imagePath.startsWith("C:\\")) {
                     image = new Image(getClass().getResourceAsStream(imagePath));
                     change_picture_btn.setText("Change Picture");
-                } catch (Exception e2) {
-                    System.err.println("CRITICAL: Could not load image from file system or resources. Path: " + imagePath);
-                    image = new Image(getClass().getResourceAsStream("/images/profile_pics/default.png"));
-                    change_picture_btn.setText("Set Up Profile Picture");
+                } else {
+                    image = new Image(new File(imagePath).toURI().toString());
+                    change_picture_btn.setText("Change Picture");
                 }
+            } catch (Exception e) {
+                System.err.println("ERROR: Could not load image at path: " + imagePath);
             }
-        } else {
-            image = new Image(getClass().getResourceAsStream("/images/profile_pics/default.png"));
+        }
+        if (image == null) {
+            image = new Image(getClass().getResourceAsStream("/images/profile_pics/default.jpg"));
             change_picture_btn.setText("Set Up Profile Picture");
         }
 
         profile_image.setImage(image);
+
+        // Apply the circular clip
         Circle clip = new Circle(profile_image.getFitWidth() / 2);
         clip.centerXProperty().bind(profile_image.fitWidthProperty().divide(2));
         clip.centerYProperty().bind(profile_image.fitHeightProperty().divide(2));
         profile_image.setClip(clip);
     }
+
 
     private void onChangePicture() {
         FileChooser fileChooser = new FileChooser();

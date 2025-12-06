@@ -1,8 +1,8 @@
-.transactions_container {
+.all_transactions_listview {
     -fx-background-color: linear-gradient(to bottom, #f4f7fa, #e8ecf3);
 }
 
-.transactions_container Text {
+.all_transactions_listview Text {
     -fx-font-size: 2.5em;
     -fx-font-family: "Calibri Light";
     -fx-fill: #000000;
@@ -10,42 +10,71 @@
 }
 
 
-.transactions_container .list-view,
-.transactions_container .list-view .viewport {
+.all_transactions_listview .list-view,
+.all_transactions_listview .list-view .viewport {
     -fx-background-color: transparent;
 }
 
 
-.transactions_container .list-cell {
+.all_transactions_listview .list-cell {
     -fx-background-color: transparent;
     -fx-padding: 5px 10px 5px 10px;
 }
 
-.transactions_container .list-cell:filled > * {
+.all_transactions_listview .list-cell:filled > * {
     -fx-background-color: white;
     -fx-background-radius: 8;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.06), 10, 0, 0, 4);
 }
 
 
-.transactions_container .list-cell:empty {
+.all_transactions_listview .list-cell:empty {
     -fx-background-color: transparent;
 }
 
 
 
-.transactions_container .list-cell LABEL {
+.all_transactions_listview .list-cell LABEL {
     -fx-background-color: #00264D;
     -fx-text-fill: #FFFFFF;
     -fx-background-radius: 2;
     -fx-font-weight: 700;
-    -fx-font-size: 1.7em;
+    -fx-font-size: 1.5em;
     -fx-padding: 5;
 }
 
 
-.transactions_container .scroll-bar:horizontal {
+.all_transactions_listview .scroll-bar:horizontal {
     -fx-max-height: 0;
     -fx-opacity: 0;
     -fx-padding: 0;
+}
+
+.all_transactions_listview .cell_container {
+    -fx-background-color: white;
+    -fx-background-radius: 8;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.06), 10, 0, 0, 4);
+}
+
+
+.all_transactions_listview .trans_date_lbl {
+    -fx-font-family: "Calibri";
+    -fx-font-size: 1.1em;
+    -fx-text-fill: #888888;
+}
+
+
+.all_transactions_listview .trans_pAddress_lbl {
+    -fx-font-family: "Calibri";
+    -fx-font-size: 1.2em;
+    -fx-font-weight: bold;
+}
+
+.all_transactions_listview .trans_amount_lbl {
+    -fx-font-size: 1.3em;
+    -fx-background-color: #00264D;
+    -fx-text-fill: #FFFFFF;
+    -fx-background-radius: 4;
+    -fx-font-weight: bold;
+    -fx-padding: 5px 8px;
 }
