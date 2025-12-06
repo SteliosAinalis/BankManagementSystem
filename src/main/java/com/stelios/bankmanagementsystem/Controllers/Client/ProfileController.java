@@ -124,19 +124,7 @@ public class ProfileController implements Initializable {
         updateProfilePictureUI(imagePath);
     }
 
-    private void updateProfilePictureUI(String imagePath) {
-        if (imagePath != null && !imagePath.isEmpty()) {
-            profile_image.setImage(new Image(getClass().getResourceAsStream(imagePath)));
-            change_picture_btn.setText("Change Picture");
-        } else {
-            profile_image.setImage(new Image(getClass().getResourceAsStream("/images/profile_pics/default.jpg")));
-            change_picture_btn.setText("Set Up Profile Picture");
-        }
-        Circle clip = new Circle(50);
-        clip.centerXProperty().bind(profile_image.fitWidthProperty().divide(2));
-        clip.centerYProperty().bind(profile_image.fitHeightProperty().divide(2));
-        profile_image.setClip(clip);
-    }
+
 
     private void onSavePassword() {
         String pAddress = Model.getInstance().getClient().payeeAddressProperty().get();
@@ -152,6 +140,35 @@ public class ProfileController implements Initializable {
         showMessage("Password changed successfully!", false);
         new_password_fld.clear();
         confirm_password_fld.clear();
+    }
+
+
+    private void updateProfilePictureUI(String imagePath) {
+        Image image;
+        if (imagePath != null && !imagePath.isEmpty()) {
+            try {
+                image = new Image(new File(imagePath).toURI().toString());
+                change_picture_btn.setText("Change Picture");
+            } catch (Exception e) {
+                try {
+                    image = new Image(getClass().getResourceAsStream(imagePath));
+                    change_picture_btn.setText("Change Picture");
+                } catch (Exception e2) {
+                    System.err.println("CRITICAL: Could not load image from file system or resources. Path: " + imagePath);
+                    image = new Image(getClass().getResourceAsStream("/images/profile_pics/default.png"));
+                    change_picture_btn.setText("Set Up Profile Picture");
+                }
+            }
+        } else {
+            image = new Image(getClass().getResourceAsStream("/images/profile_pics/default.png"));
+            change_picture_btn.setText("Set Up Profile Picture");
+        }
+
+        profile_image.setImage(image);
+        Circle clip = new Circle(profile_image.getFitWidth() / 2);
+        clip.centerXProperty().bind(profile_image.fitWidthProperty().divide(2));
+        clip.centerYProperty().bind(profile_image.fitHeightProperty().divide(2));
+        profile_image.setClip(clip);
     }
 
     private void onChangePicture() {
@@ -173,12 +190,13 @@ public class ProfileController implements Initializable {
                 File destinationFile = new File(destDir.getPath() + "/" + pAddress + "." + fileExtension);
                 Files.copy(selectedFile.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
 
-                String dbPath = "/images/profile_pics/" + destinationFile.getName();
 
+                String dbPath = "/images/profile_pics/" + destinationFile.getName();
+                String absolutePath = destinationFile.getAbsolutePath();
                 Model.getInstance().getDatabaseDriver().updateClientProfileImagePath(pAddress, dbPath);
                 Model.getInstance().getClient().profileImagePathProperty().set(dbPath);
+                updateProfilePictureUI(absolutePath);
 
-                updateProfilePictureUI(dbPath);
                 showMessage("Profile picture updated!", false);
             } catch (Exception e) {
                 e.printStackTrace();
