@@ -247,6 +247,19 @@ public class DatabaseDriver {
         return total;
     }
 
+    public void submitReport(String pAddress, String message) {
+        Statement statement;
+        try {
+            statement = this.connection.createStatement();
+            LocalDate date = LocalDate.now();
+            // Note: A PreparedStatement would be more secure against SQL Injection here.
+            statement.executeUpdate("INSERT INTO Reports(ClientAddress, Message, Date) " +
+                    "VALUES ('"+pAddress+"', '"+message+"', '"+date.toString()+"');");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 
 

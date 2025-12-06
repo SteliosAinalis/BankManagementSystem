@@ -103,6 +103,12 @@ public class ViewFactory {
     }
 
 
+    public void showReportWindow() {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Client/Report.fxml"));
+        createStage(loader);
+    }
+
+
 
     //Admin Views
 

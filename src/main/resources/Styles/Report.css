@@ -1,0 +1,35 @@
+.report-container {
+    -fx-background-color: #f4f7fa;
+}
+
+.title-text {
+    -fx-font-family: "Calibri Light";
+    -fx-font-size: 2em;
+    -fx-fill: #333333;
+}
+
+.report-container TextArea {
+    -fx-border-color: #AAAAAA;
+    -fx-border-radius: 5;
+}
+
+.submit-button {
+    -fx-background-color: linear-gradient(to right, #02326E, #00264D);
+    -fx-text-fill: white;
+    -fx-font-family: "Calibri";
+    -fx-font-weight: bold;
+    -fx-pref-height: 40px;
+    -fx-cursor: hand;
+}
+
+.message-label {
+    -fx-font-weight: bold;
+}
+
+.message-label.success {
+    -fx-text-fill: #28A745; /* Green */
+}
+
+.message-label.error {
+    -fx-text-fill: #DC3545; /* Red */
+}
