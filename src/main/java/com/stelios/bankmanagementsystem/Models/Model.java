@@ -17,9 +17,11 @@ public class Model {
 
 
     //client
-    private final ObservableList<Transaction> transactions;
     private final Client client;
     private boolean clientLoginSuccess;
+
+    private final ObservableList<Transaction> latestTransactions;
+    private final ObservableList<Transaction> allTransactions;
 
     //Admin
     private boolean adminLoginSuccess;
@@ -34,7 +36,8 @@ public class Model {
         // Client
         this.clientLoginSuccess = false;
         this.client = new Client("", "", "", null, null, null, null);
-        this.transactions = FXCollections.observableArrayList();
+        this.latestTransactions = FXCollections.observableArrayList();
+        this.allTransactions = FXCollections.observableArrayList();
 
         // Admin
         this.adminLoginSuccess = false;
@@ -86,31 +89,52 @@ public class Model {
         }
     }
 
-    public ObservableList<Transaction> getTransactions() {
-        return transactions;
-    }
-
-    public void setTransactions(String pAddress) {
-        transactions.clear();
-        ResultSet resultSet = databaseDriver.getTransactions(pAddress, 10);
+    public void setLatestTransactions() {
+        latestTransactions.clear();
+        String pAddress = this.client.payeeAddressProperty().get();
+        ResultSet resultSet = databaseDriver.getTransactions(pAddress, 6);
         try {
             while (resultSet.next()) {
-                Transaction transaction = new Transaction(
-                        resultSet.getString("Sender"),
-                        resultSet.getString("Receiver"),
-                        resultSet.getDouble("Amount"),
-                        LocalDate.parse(resultSet.getString("Date")),
-                        resultSet.getString("Message")
-                );
-                transactions.add(transaction);
+                addTransactionToList(latestTransactions, resultSet);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        } catch (SQLException e) { e.printStackTrace(); }
+    }
+
+    public void setAllTransactions() {
+        allTransactions.clear();
+        String pAddress = this.client.payeeAddressProperty().get();
+        // The limit is set high to get all transactions
+        ResultSet resultSet = databaseDriver.getTransactions(pAddress, 1000);
+        try {
+            while (resultSet.next()) {
+                addTransactionToList(allTransactions, resultSet);
+            }
+        } catch (SQLException e) { e.printStackTrace(); }
+    }
+
+
+    public ObservableList<Transaction> getLatestTransactions() {
+        return latestTransactions;
+    }
+
+    public ObservableList<Transaction> getAllTransactions() {
+        return allTransactions;
     }
 
     public void addTransaction(Transaction transaction) {
-        this.transactions.add(0, transaction);
+        this.latestTransactions.add(0, transaction);
+        this.allTransactions.add(0, transaction);
+    }
+
+    private void addTransactionToList(ObservableList<Transaction> list, ResultSet rs) throws SQLException {
+        Transaction transaction = new Transaction(
+                rs.getString("Sender"),
+                rs.getString("Receiver"),
+                rs.getDouble("Amount"),
+                LocalDate.parse(rs.getString("Date")),
+                rs.getString("Message")
+        );
+        list.add(transaction);
     }
 
 
@@ -140,7 +164,8 @@ public class Model {
         client.checkingAccountProperty().set(new CheckingAccount("", "", 0, 0));
         client.savingsAccountProperty().set(new SavingsAccount("", "", 0, 0));
         client.profileImagePathProperty().set("");
-        transactions.clear();
+        latestTransactions.clear();
+        allTransactions.clear();
         clientLoginSuccess = false;
         clients.clear();
         adminLoginSuccess = false;

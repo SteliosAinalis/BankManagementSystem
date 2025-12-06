@@ -13,8 +13,10 @@ public class TransactionsController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // Get the single, live transaction list from the Model.
-        transactions_listview.setItems(Model.getInstance().getTransactions());
+        if (Model.getInstance().getAllTransactions().isEmpty()) {
+            Model.getInstance().setAllTransactions();
+        }
+        transactions_listview.setItems(Model.getInstance().getAllTransactions());
         transactions_listview.setCellFactory(e -> new TransactionCellFactory());
     }
 }

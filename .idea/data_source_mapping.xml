@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourcePerFileMappings">
-    <file url="mock:///DatabaseDriver.java" value="d2ea25ac-b2f7-469d-9a62-d608ff786098" />
     <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/d2ea25ac-b2f7-469d-9a62-d608ff786098/console.sql" value="d2ea25ac-b2f7-469d-9a62-d608ff786098" />
   </component>
 </project>

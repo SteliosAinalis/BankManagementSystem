@@ -43,8 +43,8 @@ public class DashboardController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         bindData();
-        Model.getInstance().setTransactions(Model.getInstance().getClient().payeeAddressProperty().get());
-        transaction_listview.setItems(Model.getInstance().getTransactions());
+        Model.getInstance().setLatestTransactions();
+        transaction_listview.setItems(Model.getInstance().getLatestTransactions());
         transaction_listview.setCellFactory(e -> new TransactionCellFactory());
         send_money_btn.setOnAction(e -> onSendMoney());
         snapshot_toggle_group.selectedToggleProperty().addListener((observable, oldVal, newVal) -> {
@@ -123,16 +123,9 @@ public class DashboardController implements Initializable {
     }
 
     private void accountSummary() {
-        double income = 0;
-        double expenses = 0;
         String currentUser = Model.getInstance().getClient().payeeAddressProperty().get();
-        for (Transaction transaction : Model.getInstance().getTransactions()) {
-            if (transaction.senderProperty().get().equals(currentUser)) {
-                expenses += transaction.amountProperty().get();
-            } else {
-                income += transaction.amountProperty().get();
-            }
-        }
+        double income = Model.getInstance().getDatabaseDriver().getTotalIncome(currentUser);
+        double expenses = Model.getInstance().getDatabaseDriver().getTotalExpenses(currentUser);
         income_lbl.setText("+$" + String.format("%,.2f", income));
         expense_lbl.setText("-$" + String.format("%,.2f", expenses));
     }

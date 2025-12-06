@@ -214,6 +214,39 @@ public class DatabaseDriver {
         return resultSet;
     }
 
+    public double getTotalIncome(String pAddress) {
+        Statement statement;
+        ResultSet resultSet;
+        double total = 0;
+        try {
+            statement = this.connection.createStatement();
+            // The SUM(Amount) function calculates the total directly in the database
+            resultSet = statement.executeQuery("SELECT SUM(Amount) FROM Transactions WHERE Receiver='"+pAddress+"';");
+            if (resultSet.next()) {
+                total = resultSet.getDouble(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return total;
+    }
+
+    public double getTotalExpenses(String pAddress) {
+        Statement statement;
+        ResultSet resultSet;
+        double total = 0;
+        try {
+            statement = this.connection.createStatement();
+            resultSet = statement.executeQuery("SELECT SUM(Amount) FROM Transactions WHERE Sender='"+pAddress+"';");
+            if (resultSet.next()) {
+                total = resultSet.getDouble(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return total;
+    }
+
 
 
 

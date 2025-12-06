@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Line?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 
-<AnchorPane prefHeight="60.0" prefWidth="300.0" styleClass="cell_container" stylesheets="@../../Styles/TransactionCell.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
-    <VBox layoutX="-27.0" layoutY="-66.0" prefHeight="50.0" prefWidth="50.0" styleClass="trans_icon_container" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="-10.0" AnchorPane.topAnchor="5.0">
-        <FontAwesomeIconView fx:id="in_icon" glyphName="LONG_ARROW_RIGHT" size="15" />
-        <FontAwesomeIconView fx:id="out_icon" glyphName="LONG_ARROW_LEFT" size="15" />
-    </VBox>
-    <Label fx:id="trans_date_lbl" layoutX="55.0" layoutY="5.0" styleClass="trans_date_lbl" text="2025-11-15" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="5.0" />
-    <Label fx:id="sender_lbl" layoutX="135.0" layoutY="21.0" styleClass="trans_pAddress_lbl" text="\@sAinalis123" AnchorPane.leftAnchor="90.0" AnchorPane.topAnchor="22.0" />
-    <Line endY="20.0" layoutX="307.0" layoutY="18.0" startY="2.8" AnchorPane.bottomAnchor="21.0" AnchorPane.leftAnchor="170.0" />
-    <Label fx:id="receiver_lbl" layoutX="145.0" layoutY="31.0" styleClass="trans_pAddress_lbl" text="Konilo" AnchorPane.leftAnchor="175.0" AnchorPane.topAnchor="22.0" />
-    <Label fx:id="amount_lbl" layoutX="247.0" layoutY="19.0" styleClass="trans_amount_lbl" text="2000" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="19.0">
+<HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="335.0"
+      spacing="10.0" styleClass="cell_container" stylesheets="@../../Styles/TransactionCell.css"
+      xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+    <padding>
+        <Insets left="10.0" right="10.0"/>
+    </padding>
+    <Label fx:id="trans_date_lbl" styleClass="trans_date_lbl" text="2025-11-15"/>
+    <Label fx:id="sender_lbl" styleClass="trans_pAddress_lbl" text="\@sAinalis123"/>
+    <FontAwesomeIconView styleClass="arrow-separator" glyphName="ARROW_RIGHT"/>
+    <Label fx:id="receiver_lbl" styleClass="trans_pAddress_lbl" text="\@Konilo"/>
+    <Region HBox.hgrow="ALWAYS"/>
+    <Label fx:id="amount_lbl" styleClass="trans_amount_lbl" text="\$2000">
         <graphic>
-          <FontAwesomeIconView glyphName="DOLLAR" size="10" />
+            <FontAwesomeIconView styleClass="dollar-icon" glyphName="DOLLAR" size="10"/>
         </graphic>
     </Label>
-</AnchorPane>
+</HBox>
