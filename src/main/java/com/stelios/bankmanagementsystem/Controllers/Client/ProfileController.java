@@ -54,34 +54,22 @@ public class ProfileController implements Initializable {
         search_btn.setOnAction(event -> onSearch());
     }
 
-    // THE NEW, ROBUST METHOD
     private void updateProfilePictureUI(String imagePath) {
         Image image = null;
-
         if (imagePath != null && !imagePath.isEmpty()) {
-            // --- Primary Method: Try loading as a resource ---
-            // This is the standard way and works after login if the file is on the classpath.
             try {
-                image = new Image(getClass().getResourceAsStream(imagePath));
-            } catch (Exception e) {
-                image = null; // Ensure image is null if this fails
-            }
-
-            // --- Fallback Method: Try loading as a direct file path ---
-            // This is for the immediate update after a user selects a file from their computer.
-            if (image == null || image.isError()) {
-                try {
+                if (imagePath.startsWith("/") && !imagePath.contains("src/main/resources")) {
+                    image = new Image(getClass().getResourceAsStream(imagePath));
+                } else {
                     image = new Image(new File(imagePath).toURI().toString());
-                } catch (Exception e) {
-                    image = null; // Ensure image is null if this also fails
                 }
+            } catch (Exception e) {
+                System.err.println("Error loading image, falling back to default. Path: " + imagePath);
             }
         }
 
-        // --- Final Check: If all else failed, use the default ---
         if (image == null || image.isError()) {
-            // Make sure your default image is a .png or change the extension here.
-            image = new Image(getClass().getResourceAsStream("/images/profile_pics/default.png"));
+            image = new Image(getClass().getResourceAsStream("/images/profile_pics/default.jpg"));
             change_picture_btn.setText("Set Up Profile Picture");
         } else {
             change_picture_btn.setText("Change Picture");
@@ -114,15 +102,12 @@ public class ProfileController implements Initializable {
                 String originalFileName = selectedFile.getName();
                 File destinationFile = new File(destDir.getPath() + "/" + originalFileName);
                 Files.copy(selectedFile.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-
                 String dbPath = "/images/profile_pics/" + destinationFile.getName();
                 String absolutePath = destinationFile.getAbsolutePath();
 
                 Model.getInstance().getDatabaseDriver().updateClientProfileImagePath(pAddress, dbPath);
                 Model.getInstance().getClient().profileImagePathProperty().set(dbPath);
-
                 updateProfilePictureUI(absolutePath);
-
                 showMessage("Profile picture updated!", false);
             } catch (Exception e) {
                 e.printStackTrace();
