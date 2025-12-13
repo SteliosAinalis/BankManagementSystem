@@ -27,9 +27,9 @@
 }
 
 .message-label.success {
-    -fx-text-fill: #28A745; /* Green */
+    -fx-text-fill: #28A745;
 }
 
 .message-label.error {
-    -fx-text-fill: #DC3545; /* Red */
+    -fx-text-fill: #DC3545;
 }

@@ -165,7 +165,6 @@ public class DatabaseDriver {
         ResultSet resultSet = null;
         try {
             statement = this.connection.createStatement();
-            // Using LIKE allows for partial matches (e.g., "Stel" will find "Stelios")
             resultSet = statement.executeQuery("SELECT * FROM Clients WHERE FirstName LIKE '%"+firstName+"%';");
         } catch (SQLException e) {
             e.printStackTrace();
@@ -177,7 +176,6 @@ public class DatabaseDriver {
         Statement statement;
         try {
             statement = this.connection.createStatement();
-            // Add the friendship in both directions to make it mutual
             statement.executeUpdate("INSERT INTO Friends(ClientAddress, FriendAddress) VALUES ('"+clientAddress+"', '"+friendAddress+"');");
             statement.executeUpdate("INSERT INTO Friends(ClientAddress, FriendAddress) VALUES ('"+friendAddress+"', '"+clientAddress+"');");
         } catch (SQLException e) {
@@ -190,7 +188,6 @@ public class DatabaseDriver {
         ResultSet resultSet = null;
         try {
             statement = this.connection.createStatement();
-            // This query joins the Friends and Clients tables to get the full details of each friend
             resultSet = statement.executeQuery("SELECT c.* FROM Friends f JOIN Clients c ON f.FriendAddress = c.PayeeAddress WHERE f.ClientAddress = '"+clientAddress+"';");
         } catch (SQLException e) {
             e.printStackTrace();
@@ -203,7 +200,6 @@ public class DatabaseDriver {
         ResultSet resultSet = null;
         try {
             statement = this.connection.createStatement();
-            // This query groups all transactions by the SENDER and sums the amounts
             resultSet = statement.executeQuery("SELECT Sender, SUM(Amount) as TotalReceived " +
                     "FROM Transactions " +
                     "WHERE Receiver = '"+receiverAddress+"' " +
@@ -220,7 +216,6 @@ public class DatabaseDriver {
         double total = 0;
         try {
             statement = this.connection.createStatement();
-            // The SUM(Amount) function calculates the total directly in the database
             resultSet = statement.executeQuery("SELECT SUM(Amount) FROM Transactions WHERE Receiver='"+pAddress+"';");
             if (resultSet.next()) {
                 total = resultSet.getDouble(1);
@@ -252,7 +247,6 @@ public class DatabaseDriver {
         try {
             statement = this.connection.createStatement();
             LocalDate date = LocalDate.now();
-            // Note: A PreparedStatement would be more secure against SQL Injection here.
             statement.executeUpdate("INSERT INTO Reports(ClientAddress, Message, Date) " +
                     "VALUES ('"+pAddress+"', '"+message+"', '"+date.toString()+"');");
         } catch (SQLException e) {
@@ -364,7 +358,6 @@ public class DatabaseDriver {
         ResultSet resultSet = null;
         try {
             statement = this.connection.createStatement();
-            // This query groups all transactions by the receiver and sums the amounts
             resultSet = statement.executeQuery("SELECT Receiver, SUM(Amount) as TotalSent " +
                     "FROM Transactions " +
                     "WHERE Sender = '"+senderAddress+"' " +

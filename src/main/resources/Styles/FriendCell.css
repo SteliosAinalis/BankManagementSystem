@@ -1,10 +1,8 @@
-/* Container for the entire friend cell row */
 .friend-cell-container {
     -fx-padding: 5px;
     -fx-background-color: transparent;
 }
 
-/* Style for the payee address label */
 .payee-address {
     -fx-font-family: "Calibri";
     -fx-font-size: 1.2em;
@@ -12,24 +10,17 @@
     -fx-text-fill: #333333;
 }
 
-/* =============================================
-   REMOVE FRIEND BUTTON STYLE
-===============================================*/
-.remove-friend-button {
-    /* Make the button a circle */
-    -fx-background-radius: 20em;
 
-    /* Set the red background color */
-    -fx-background-color: #DC3545; /* A standard, clear red */
+.remove-friend-button {
+    -fx-background-radius: 20em;
+    -fx-background-color: #DC3545;
     -fx-cursor: hand;
 }
 
-/* Change color on hover for feedback */
 .remove-friend-button:hover {
-    -fx-background-color: #c82333; /* A slightly darker red */
+    -fx-background-color: #c82333;
 }
 
-/* Style for the trash icon inside the button */
 .remove-friend-button .glyph-icon {
-    -fx-fill: white; /* Make the trash icon white */
+    -fx-fill: white;
 }

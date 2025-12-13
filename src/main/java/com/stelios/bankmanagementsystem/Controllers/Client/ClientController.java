@@ -12,7 +12,6 @@ public class ClientController implements Initializable {
 
     public BorderPane client_parent;
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 

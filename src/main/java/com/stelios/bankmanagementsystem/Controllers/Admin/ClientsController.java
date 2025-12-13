@@ -46,7 +46,7 @@ public class ClientsController implements Initializable {
         Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
         confirmationAlert.setTitle("Delete Client");
         confirmationAlert.setHeaderText("Are you sure you want to delete this client?");
-        confirmationAlert.setContentText("This will permanently delete the client and all of their associated accounts and transactions. This action cannot be undone.");
+        confirmationAlert.setContentText("This will permanently delete the client and all of their associated accounts and transactions. This action cant be undone.");
 
         Optional<ButtonType> result = confirmationAlert.showAndWait();
 

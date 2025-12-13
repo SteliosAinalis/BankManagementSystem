@@ -33,7 +33,6 @@ public class DashboardController implements Initializable {
     public TextArea message_fld;
     public Button send_money_btn;
 
-    // Snapshot Chart UI Elements
     public ToggleGroup snapshot_toggle_group;
     public ToggleButton income_btn;
     public ToggleButton spending_btn;

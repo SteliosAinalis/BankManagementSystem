@@ -76,8 +76,8 @@
 }
 
 .login_form_container Button:hover {
-    -fx-background-color: #2F855A; /* Success Green */
+    -fx-background-color: #2F855A;
 }
 .error_lbl {
-    -fx-text-fill: #E53E3E; /* Error Red */
+    -fx-text-fill: #E53E3E;
 }

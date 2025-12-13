@@ -208,7 +208,6 @@
     -fx-stroke: #02326E;
 }
 
-/* Hide the symbols on the line for a modern, clean look */
 .default-color0.chart-line-symbol {
     -fx-background-color: transparent, transparent;
 }
@@ -235,7 +234,7 @@
 }
 
 .toggle-button:selected {
-    -fx-background-color: linear-gradient(to right, #02326E, #00264D); /* Match your gradient */
+    -fx-background-color: linear-gradient(to right, #02326E, #00264D);
     -fx-text-fill: white;
     -fx-border-color: #00264D;
 }

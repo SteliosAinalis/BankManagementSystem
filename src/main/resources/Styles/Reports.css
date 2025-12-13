@@ -1,39 +1,28 @@
-/* ===================================================
-   REPORTS VIEW STYLES
-   (Designed to match the Clients view)
-======================================================*/
 
-/* Main container for the view */
 .reports-view {
     -fx-background-color: linear-gradient(to bottom, #f4f7fa, #e8ecf3);
 }
 
-/* The "User Reports" title */
+
 .page-title {
     -fx-font-family: "Calibri Light";
     -fx-font-size: 2.5em;
     -fx-fill: #333333;
 }
 
-/* Make the ListView itself and its internal viewport transparent */
+
 .reports-view .list-view,
 .reports-view .list-view .viewport {
     -fx-background-color: transparent;
     -fx-border-width: 0;
 }
 
-/* Make each cell a transparent container for spacing */
 .reports-view .list-cell {
     -fx-background-color: transparent;
-    -fx-padding: 8px 0 8px 0; /* Add vertical space between cards */
+    -fx-padding: 8px 0 8px 0;
 }
 
-/* ===================================================
-   REPORT CELL STYLES
-   (The white "card" for each report)
-======================================================*/
 
-/* Target the content of a filled cell to create the card effect */
 .reports-view .list-cell:filled > .report-cell-container {
     -fx-background-color: white;
     -fx-background-radius: 8;
@@ -44,7 +33,7 @@
 .sender-label {
     -fx-font-weight: bold;
     -fx-font-size: 1.2em;
-    -fx-text-fill: #02326E; /* Using your primary blue */
+    -fx-text-fill: #02326E;
 }
 
 .date-label {
@@ -64,7 +53,7 @@
 }
 
 .delete-button:hover {
-    -fx-background-color: #c82333; /* Darker red on hover */
+    -fx-background-color: #c82333;
 }
 
 .delete-button .glyph-icon {

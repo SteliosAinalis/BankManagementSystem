@@ -33,7 +33,7 @@ public class LoginController implements Initializable {
     private void onLogin(){
         Stage stage = (Stage) error_lbl.getScene().getWindow();
         if(Model.getInstance().getViewFactory().getLoginAccountType() == AccountType.CLIENT){
-            //Check Payee Address and Password
+            //Client
             Model.getInstance().evaluateClientCredentials(payee_address_fld.getText(), password_fld.getText());
             if (Model.getInstance().getClientLoginSuccess()){
                 Model.getInstance().getViewFactory().showClientWindow();
@@ -45,6 +45,7 @@ public class LoginController implements Initializable {
                 error_lbl.setText("Invalid Credentials");
             }
         }else{
+            //Admin
             Model.getInstance().evaluateAdminCredentials(payee_address_fld.getText(), password_fld.getText());
             if (Model.getInstance().getAdminLoginSuccess()){
                 Model.getInstance().getViewFactory().showAdminWindow();
