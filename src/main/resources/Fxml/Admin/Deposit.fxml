@@ -10,7 +10,12 @@
 <?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="750.0" prefWidth="850.0" styleClass="deposit_container" stylesheets="@../../Styles/Deposit.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.stelios.bankmanagementsystem.Controllers.Admin.DepositController">
-    <VBox layoutX="16.0" layoutY="84.0" prefHeight="570.0" prefWidth="820.0" styleClass="deposit_container" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="100.0">
+   <VBox prefHeight="70.0" prefWidth="500.0" styleClass="tittle" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0">
+      <children>
+         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Deposit" />
+      </children>
+   </VBox>
+    <VBox layoutX="16.0" layoutY="84.0" prefHeight="570.0" prefWidth="820.0" styleClass="deposit_container" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="100.0">
         <HBox alignment="CENTER" prefHeight="60.0" prefWidth="820.0" styleClass="search_box">
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Search By Payee Address:" />
             <TextField fx:id="pAddress_fld" />

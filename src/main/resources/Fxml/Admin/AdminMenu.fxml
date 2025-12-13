@@ -33,6 +33,11 @@
                     <FontAwesomeIconView glyphName="MONEY" size="20"/>
                 </graphic>
             </Button>
+            <Button fx:id="reports_btn" mnemonicParsing="false" text="Reports">
+                <graphic>
+                    <FontAwesomeIconView glyphName="WARNING" size="20"/>
+                </graphic>
+            </Button>
             <Button fx:id="logout_btn" mnemonicParsing="false" styleClass="alt_menu_btn" text="Logout">
                 <graphic>
                     <FontAwesomeIconView glyphName="EXTERNAL_LINK" size="20"/>

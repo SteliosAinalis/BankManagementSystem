@@ -8,6 +8,12 @@
     -fx-border-width: 0 0 0 0;
 }
 
+.tittle Text{
+    -fx-font-family: "Calibri Light";
+    -fx-font-size: 2.5em;
+    -fx-fill: #333333;
+}
+
 Text{
     -fx-font-family: "Calibri Light";
     -fx-font-size: 1.6em;

@@ -4,9 +4,9 @@
 }
 
 .clients_container Text{
-    -fx-fill: #555555;
-    -fx-font-size: 1.8em;
     -fx-font-family: "Calibri Light";
+    -fx-font-size: 2.5em;
+    -fx-fill: #333333;
 }
 
 .clients_container .list-view{

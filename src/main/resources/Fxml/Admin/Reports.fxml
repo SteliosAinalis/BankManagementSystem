@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="750.0" prefWidth="850.0" styleClass="reports-view" stylesheets="@../../Styles/Reports.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.stelios.bankmanagementsystem.Controllers.Admin.ReportsController">
+    <VBox spacing="15.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
+        <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="page-title" text="User Reports" />
+            <ListView fx:id="reports_listview" styleClass="reports-view" VBox.vgrow="ALWAYS" />
+        </children>
+    </VBox>
+</AnchorPane>

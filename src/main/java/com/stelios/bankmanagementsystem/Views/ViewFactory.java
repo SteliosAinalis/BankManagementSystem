@@ -25,6 +25,7 @@ public class ViewFactory {
     private AnchorPane createClientView;
     private AnchorPane clientsView;
     private AnchorPane depositView;
+    private AnchorPane reportsView;
 
 
     public ViewFactory(){
@@ -147,6 +148,17 @@ public class ViewFactory {
             }
         }
         return depositView;
+    }
+
+    public AnchorPane getReportsView() {
+        if(reportsView == null){
+            try{
+                reportsView = new FXMLLoader(getClass().getResource("/Fxml/Admin/Reports.fxml")).load();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+        return reportsView;
     }
 
 

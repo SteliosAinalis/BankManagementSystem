@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<VBox spacing="5.0" styleClass="report-cell-container" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <HBox alignment="CENTER_LEFT" spacing="10.0">
+            <children>
+                <Label fx:id="sender_lbl" styleClass="sender-label" text="\@senderAddress" />
+                <Region HBox.hgrow="ALWAYS" />
+                <Label fx:id="date_lbl" styleClass="date-label" text="2025-12-06" />
+                <Button fx:id="delete_btn" mnemonicParsing="false" styleClass="delete-button">
+                    <graphic>
+                        <FontAwesomeIconView glyphName="TRASH" />
+                    </graphic>
+                </Button>
+            </children>
+        </HBox>
+        <Text fx:id="message_txt" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="message-text" text="This is the report message content. It can be long and will wrap to the next line if necessary." wrappingWidth="780.0" />
+    </children>
+</VBox>

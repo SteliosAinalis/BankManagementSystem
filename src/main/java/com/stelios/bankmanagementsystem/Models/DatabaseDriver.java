@@ -260,6 +260,28 @@ public class DatabaseDriver {
         }
     }
 
+    public ResultSet getAllReports() {
+        Statement statement;
+        ResultSet resultSet = null;
+        try {
+            statement = this.connection.createStatement();
+            resultSet = statement.executeQuery("SELECT * FROM Reports ORDER BY Date DESC;");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return resultSet;
+    }
+
+    public void deleteReport(int reportId) {
+        Statement statement;
+        try {
+            statement = this.connection.createStatement();
+            statement.executeUpdate("DELETE FROM Reports WHERE ID = "+reportId+";");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 
 
