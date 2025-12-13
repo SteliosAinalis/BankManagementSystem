@@ -85,11 +85,12 @@ public class ClientMenuController implements Initializable {
             }
             return new Image(getClass().getResourceAsStream("/images/profile_pics/default.jpg"));
         }, imagePathProperty));
-
-        Circle clip = new Circle(profile_image.getFitWidth() / 2);
+        Circle clip = new Circle();
+        clip.radiusProperty().bind(profile_image.fitWidthProperty().divide(2));
         clip.centerXProperty().bind(profile_image.fitWidthProperty().divide(2));
         clip.centerYProperty().bind(profile_image.fitHeightProperty().divide(2));
         profile_image.setClip(clip);
     }
+
 
 }

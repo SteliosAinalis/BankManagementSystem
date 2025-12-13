@@ -4,7 +4,6 @@ import com.stelios.bankmanagementsystem.Models.Client;
 import com.stelios.bankmanagementsystem.Models.Model;
 import com.stelios.bankmanagementsystem.Views.FriendCellFactory;
 import com.stelios.bankmanagementsystem.Views.SearchResultCellFactory;
-import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
@@ -42,44 +41,95 @@ public class ProfileController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        bindProfileImage();
-        Model.getInstance().getClient().payeeAddressProperty().addListener((observable, oldVal, newVal) -> {
-            if (newVal != null && !newVal.isEmpty()) {
+        Model.getInstance().getClient().payeeAddressProperty().addListener((observable, oldAddress, newAddress) -> {
+            if (newAddress != null && !newAddress.isEmpty()) {
+                updateProfilePictureUI(Model.getInstance().getClient().profileImagePathProperty().get());
                 loadFriendsList();
             }
         });
-
-
+        updateProfilePictureUI(Model.getInstance().getClient().profileImagePathProperty().get());
         loadFriendsList();
         save_password_btn.setOnAction(event -> onSavePassword());
         change_picture_btn.setOnAction(event -> onChangePicture());
         search_btn.setOnAction(event -> onSearch());
     }
 
-    private void bindProfileImage() {
-        var imagePathProperty = Model.getInstance().getClient().profileImagePathProperty();
+    // THE NEW, ROBUST METHOD
+    private void updateProfilePictureUI(String imagePath) {
+        Image image = null;
 
-        profile_image.imageProperty().bind(Bindings.createObjectBinding(() -> {
-            String path = imagePathProperty.get();
-            if (path != null && !path.isEmpty()) {
+        if (imagePath != null && !imagePath.isEmpty()) {
+            // --- Primary Method: Try loading as a resource ---
+            // This is the standard way and works after login if the file is on the classpath.
+            try {
+                image = new Image(getClass().getResourceAsStream(imagePath));
+            } catch (Exception e) {
+                image = null; // Ensure image is null if this fails
+            }
+
+            // --- Fallback Method: Try loading as a direct file path ---
+            // This is for the immediate update after a user selects a file from their computer.
+            if (image == null || image.isError()) {
                 try {
-                    return new Image(getClass().getResourceAsStream(path));
+                    image = new Image(new File(imagePath).toURI().toString());
                 } catch (Exception e) {
-                    System.err.println("Failed to load image from resource: " + path);
+                    image = null; // Ensure image is null if this also fails
                 }
             }
-            return new Image(getClass().getResourceAsStream("/images/profile_pics/default.png"));
-        }, imagePathProperty));
+        }
 
-        change_picture_btn.textProperty().bind(Bindings.when(imagePathProperty.isEmpty().or(imagePathProperty.isNull()))
-                .then("Set Up Profile Picture")
-                .otherwise("Change Picture"));
+        // --- Final Check: If all else failed, use the default ---
+        if (image == null || image.isError()) {
+            // Make sure your default image is a .png or change the extension here.
+            image = new Image(getClass().getResourceAsStream("/images/profile_pics/default.png"));
+            change_picture_btn.setText("Set Up Profile Picture");
+        } else {
+            change_picture_btn.setText("Change Picture");
+        }
+
+        profile_image.setImage(image);
         Circle clip = new Circle(40.0);
         clip.centerXProperty().bind(profile_image.fitWidthProperty().divide(2));
         clip.centerYProperty().bind(profile_image.fitHeightProperty().divide(2));
         profile_image.setClip(clip);
     }
 
+    private void onChangePicture() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choose Profile Picture");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg")
+        );
+        Stage stage = (Stage) profile_image.getScene().getWindow();
+        File selectedFile = fileChooser.showOpenDialog(stage);
+
+        if (selectedFile != null) {
+            try {
+                String pAddress = Model.getInstance().getClient().payeeAddressProperty().get();
+                File destDir = new File("src/main/resources/images/profile_pics");
+                if (!destDir.exists()) {
+                    destDir.mkdirs();
+                }
+
+                String originalFileName = selectedFile.getName();
+                File destinationFile = new File(destDir.getPath() + "/" + originalFileName);
+                Files.copy(selectedFile.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+                String dbPath = "/images/profile_pics/" + destinationFile.getName();
+                String absolutePath = destinationFile.getAbsolutePath();
+
+                Model.getInstance().getDatabaseDriver().updateClientProfileImagePath(pAddress, dbPath);
+                Model.getInstance().getClient().profileImagePathProperty().set(dbPath);
+
+                updateProfilePictureUI(absolutePath);
+
+                showMessage("Profile picture updated!", false);
+            } catch (Exception e) {
+                e.printStackTrace();
+                showMessage("Error updating picture.", true);
+            }
+        }
+    }
 
     private void onSearch() {
         String searchTerm = search_fld.getText();
@@ -156,35 +206,6 @@ public class ProfileController implements Initializable {
         showMessage("Password changed successfully!", false);
         new_password_fld.clear();
         confirm_password_fld.clear();
-    }
-
-    private void onChangePicture() {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Choose Profile Picture");
-        fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg")
-        );
-        Stage stage = (Stage) profile_image.getScene().getWindow();
-        File selectedFile = fileChooser.showOpenDialog(stage);
-        if (selectedFile != null) {
-            try {
-                String pAddress = Model.getInstance().getClient().payeeAddressProperty().get();
-                File destDir = new File("src/main/resources/images/profile_pics");
-                if (!destDir.exists()) {
-                    destDir.mkdirs();
-                }
-                String fileExtension = getFileExtension(selectedFile);
-                File destinationFile = new File(destDir.getPath() + "/" + pAddress + "." + fileExtension);
-                Files.copy(selectedFile.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-                String dbPath = "/images/profile_pics/" + destinationFile.getName();
-                Model.getInstance().getDatabaseDriver().updateClientProfileImagePath(pAddress, dbPath);
-                Model.getInstance().getClient().profileImagePathProperty().set(dbPath);
-                showMessage("Profile picture updated!", false);
-            } catch (Exception e) {
-                e.printStackTrace();
-                showMessage("Error updating picture.", true);
-            }
-        }
     }
 
     private String getFileExtension(File file) {
