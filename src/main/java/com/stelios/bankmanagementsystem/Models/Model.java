@@ -156,19 +156,26 @@ public class Model {
 
 
     public void logout() {
-        client.firstNameProperty().set("");
-        client.lastNameProperty().set("");
-        client.payeeAddressProperty().set("");
-        client.dateCreatedProperty().set(null);
-        client.checkingAccountProperty().set(new CheckingAccount("", "", 0, 0));
-        client.savingsAccountProperty().set(new SavingsAccount("", "", 0, 0));
-        client.profileImagePathProperty().set("");
-        latestTransactions.clear();
-        allTransactions.clear();
-        clientLoginSuccess = false;
-        clients.clear();
-        adminLoginSuccess = false;
-        viewFactory.clearClientViews();
+        // Clear client-specific data
+        if (clientLoginSuccess) {
+            client.firstNameProperty().set("");
+            client.lastNameProperty().set("");
+            client.payeeAddressProperty().set("");
+            client.dateCreatedProperty().set(null);
+            client.checkingAccountProperty().set(new CheckingAccount("", "", 0, 0));
+            client.savingsAccountProperty().set(new SavingsAccount("", "", 0, 0));
+            client.profileImagePathProperty().set("");
+            latestTransactions.clear();
+            allTransactions.clear();
+            clientLoginSuccess = false;
+            viewFactory.clearClientViews();
+        }
+
+        // Clear admin-specific data
+        if (adminLoginSuccess) {
+            clients.clear();
+            adminLoginSuccess = false;
+        }
     }
 
 

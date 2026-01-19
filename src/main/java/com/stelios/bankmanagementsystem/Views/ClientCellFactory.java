@@ -23,7 +23,23 @@ public class ClientCellFactory extends ListCell<Client> {
             }catch(Exception e){
                 e.printStackTrace();
             }
+        }
+        updateSelectionStyle();
+    }
 
+    @Override
+    public void updateSelected(boolean selected) {
+        super.updateSelected(selected);
+        updateSelectionStyle();
+    }
+
+    private void updateSelectionStyle() {
+        if (getGraphic() != null) {
+            if (isSelected()) {
+                getGraphic().setStyle("-fx-background-color: #E3F2FD; -fx-background-radius: 10;");
+            } else {
+                getGraphic().setStyle("-fx-background-color: white; -fx-background-radius: 10;");
+            }
         }
     }
 }

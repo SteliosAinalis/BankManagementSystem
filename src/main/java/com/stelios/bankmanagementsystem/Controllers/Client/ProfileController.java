@@ -84,33 +84,33 @@ public class ProfileController implements Initializable {
 
 
 
-    private void updateProfilePictureUI(String imagePath) {
-        Image image = null;
-        if (imagePath != null && !imagePath.isEmpty()) {
-            try {
-                if (imagePath.startsWith("/") && !imagePath.contains("src/main/resources")) {
-                    image = new Image(getClass().getResourceAsStream(imagePath));
-                } else {
-                    image = new Image(new File(imagePath).toURI().toString());
-                }
-            } catch (Exception e) {
-                System.err.println("Error loading image, falling back to default. Path: " + imagePath);
-            }
-        }
-
-        if (image == null || image.isError()) {
-            image = new Image(getClass().getResourceAsStream("/images/profile_pics/default.jpg"));
-            change_picture_btn.setText("Set Up Profile Picture");
-        } else {
-            change_picture_btn.setText("Change Picture");
-        }
-
-        profile_image.setImage(image);
-        Circle clip = new Circle(40.0);
-        clip.centerXProperty().bind(profile_image.fitWidthProperty().divide(2));
-        clip.centerYProperty().bind(profile_image.fitHeightProperty().divide(2));
-        profile_image.setClip(clip);
-    }
+//    private void updateProfilePictureUI(String imagePath) {
+//        Image image = null;
+//        if (imagePath != null && !imagePath.isEmpty()) {
+//            try {
+//                if (imagePath.startsWith("/") && !imagePath.contains("src/main/resources")) {
+//                    image = new Image(getClass().getResourceAsStream(imagePath));
+//                } else {
+//                    image = new Image(new File(imagePath).toURI().toString());
+//                }
+//            } catch (Exception e) {
+//                System.err.println("Error loading image, falling back to default. Path: " + imagePath);
+//            }
+//        }
+//
+//        if (image == null || image.isError()) {
+//            image = new Image(getClass().getResourceAsStream("/images/profile_pics/default.jpg"));
+//            change_picture_btn.setText("Set Up Profile Picture");
+//        } else {
+//            change_picture_btn.setText("Change Picture");
+//        }
+//
+//        profile_image.setImage(image);
+//        Circle clip = new Circle(40.0);
+//        clip.centerXProperty().bind(profile_image.fitWidthProperty().divide(2));
+//        clip.centerYProperty().bind(profile_image.fitHeightProperty().divide(2));
+//        profile_image.setClip(clip);
+//    }
 
     private void onChangePicture() {
         FileChooser fileChooser = new FileChooser();
@@ -137,7 +137,7 @@ public class ProfileController implements Initializable {
 
                 Model.getInstance().getDatabaseDriver().updateClientProfileImagePath(pAddress, dbPath);
                 Model.getInstance().getClient().profileImagePathProperty().set(dbPath);
-                updateProfilePictureUI(absolutePath);
+//                updateProfilePictureUI(absolutePath);
                 showMessage("Profile picture updated!", false);
             } catch (Exception e) {
                 e.printStackTrace();
